@@ -2,6 +2,7 @@ package com.Daniel.ToDo_Backend.model;
 
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -9,10 +10,14 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String title;
+    private Date date;
+    private Time time;
     private boolean isDone;
-    @Column(name = "task_order")
-    private Integer order;
+
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @Column(name = "taskOrder")
+//    private Integer taskOrder;
 
 //    @PrePersist
 //    public void prePersist() {
@@ -22,14 +27,39 @@ public class Task {
 //        }
 //    }
 
-    public Task(Long id, String name, boolean isDone, Integer order) {
-        this.id = id;
-        this.name = name;
-        this.isDone = isDone;
+//    public Task(Long id, String name, boolean isDone) {
+//        this.id = id;
+//        this.name = name;
+//        this.isDone = isDone;
+//
+////        EntityManager entityManager = Persistence.createEntityManagerFactory("your-persistence-unit").createEntityManager();
+////        Integer maxOrder = (Integer) entityManager.createQuery("SELECT MAX(t.order) FROM Task t").getSingleResult();
+////        this.order = maxOrder != null ? maxOrder + 1 : 1;
+//    }
 
-        EntityManager entityManager = Persistence.createEntityManagerFactory("your-persistence-unit").createEntityManager();
-        Integer maxOrder = (Integer) entityManager.createQuery("SELECT MAX(t.order) FROM Task t").getSingleResult();
-        this.order = maxOrder != null ? maxOrder + 1 : 1;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public Long getId() {
@@ -40,14 +70,6 @@ public class Task {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isDone() {
         return isDone;
     }
@@ -56,11 +78,11 @@ public class Task {
         isDone = done;
     }
 
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
+//    public Integer getTaskOrder() {
+//        return taskOrder;
+//    }
+//
+//    public void setTaskOrder(Integer taskOrder) {
+//        this.taskOrder = taskOrder;
+//    }
 }
