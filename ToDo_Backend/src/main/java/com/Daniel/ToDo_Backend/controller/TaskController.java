@@ -22,7 +22,10 @@ public class TaskController {
         return new ResponseEntity<>(taskService.saveTask(newTask), HttpStatus.CREATED);
     }
 
-    
+    @GetMapping("/allTasks")
+    public ResponseEntity<?> getAllTask(){
+        return new ResponseEntity<>(taskService.getAllTask(), HttpStatus.OK);
+    }
 
 
 }
