@@ -14,6 +14,12 @@ public class Task {
     private Date date;
     private Time time;
     private boolean isDone;
+    private Integer taskOrder;
+
+    @PostPersist
+    public void assignIdToTaskOrder() {
+        this.taskOrder = Math.toIntExact(this.id);
+    }
 
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 //    @Column(name = "taskOrder")
@@ -78,11 +84,12 @@ public class Task {
         isDone = done;
     }
 
-//    public Integer getTaskOrder() {
-//        return taskOrder;
-//    }
-//
-//    public void setTaskOrder(Integer taskOrder) {
-//        this.taskOrder = taskOrder;
-//    }
+    public Integer getTaskOrder() {
+        return taskOrder;
+    }
+
+    public void setTaskOrder(Integer taskOrder) {
+        this.taskOrder = taskOrder;
+    }
+
 }
