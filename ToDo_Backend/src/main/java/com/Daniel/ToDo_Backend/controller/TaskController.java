@@ -4,6 +4,9 @@ import com.Daniel.ToDo_Backend.model.Task;
 import com.Daniel.ToDo_Backend.repository.TaskRepository;
 import com.Daniel.ToDo_Backend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +18,11 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping("/addTask")
-    Task newTask(@RequestBody Task newTask){
-        return taskService.saveTask(newTask);
+    public ResponseEntity<?> newTask(@RequestBody Task newTask){
+        return new ResponseEntity<>(taskService.saveTask(newTask), HttpStatus.CREATED);
     }
+
+    
 
 
 }
