@@ -50,7 +50,15 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task editTask(Task task, Long id) {
-        return null;
+    public Task editTask(Task newTask, Long id) {
+        return taskRepository.findById(id)
+                .map(task -> {
+                    task.setTitle(newTask.getTitle());
+                    task.setDate(newTask.getDate());
+                    task.setTime(newTask.getTime());
+                    task.setDone(newTask.isDone());
+                    task.setTaskOrder(newTask.getTaskOrder());
+                    return taskRepository.save(task);
+                }).orElseThrow(() -> new TaskNotFoundException(id));
     }
 }

@@ -34,5 +34,9 @@ public class TaskController {
         return new ResponseEntity<>(taskService.deleteTask(id), HttpStatus.OK);
     }
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editTask(@RequestBody Task newTask, @PathVariable Long id){
+        return new ResponseEntity<>(taskService.editTask(newTask, id), HttpStatus.OK);
+    }
 
 }
