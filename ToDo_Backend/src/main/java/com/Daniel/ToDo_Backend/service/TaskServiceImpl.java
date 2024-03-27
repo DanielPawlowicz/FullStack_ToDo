@@ -42,7 +42,11 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public String deleteTask(Long id) {
-        return null;
+        if(!taskRepository.existsById(id)){
+            throw new TaskNotFoundException(id);
+        }
+        taskRepository.deleteById(id);
+        return "Task with id "+id+" deleted successfully";
     }
 
     @Override
