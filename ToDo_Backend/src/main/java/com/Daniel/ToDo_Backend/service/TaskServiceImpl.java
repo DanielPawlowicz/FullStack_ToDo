@@ -1,5 +1,6 @@
 package com.Daniel.ToDo_Backend.service;
 
+import com.Daniel.ToDo_Backend.controller.exception.TaskNotFoundException;
 import com.Daniel.ToDo_Backend.model.Task;
 import com.Daniel.ToDo_Backend.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getTaskById(Long id) {
-        return null;
+        return taskRepository.findById(id)
+                .orElseThrow(()->new TaskNotFoundException(id));
     }
 
     @Override

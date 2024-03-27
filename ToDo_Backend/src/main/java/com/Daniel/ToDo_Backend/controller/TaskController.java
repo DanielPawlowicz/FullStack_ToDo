@@ -6,10 +6,7 @@ import com.Daniel.ToDo_Backend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TaskController {
@@ -25,6 +22,11 @@ public class TaskController {
     @GetMapping("/allTasks")
     public ResponseEntity<?> getAllTask(){
         return new ResponseEntity<>(taskService.getAllTask(), HttpStatus.OK);
+    }
+
+    @GetMapping("/Task/{id}")
+    public ResponseEntity<?> getAllTask(@PathVariable Long id){
+        return new ResponseEntity<>(taskService.getTaskById(id), HttpStatus.OK);
     }
 
 
