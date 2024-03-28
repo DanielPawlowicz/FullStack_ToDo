@@ -11,3 +11,66 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  background: #eee;
+  box-shadow: 0 0 50px rgba(0,0,0,0.25);
+  margin: 20px auto;
+  /* display: flex; */
+  max-width: 40vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.listHeader h1{
+  text-align: center;
+  padding: 20px;
+  font-size: 50px;
+  color: #333;
+  font-family: "Verdana";
+}
+
+.formContainer{
+  margin: 20px auto;
+  position: sticky;
+  bottom: 0;
+  /* border-top: 0.5px solid gray; */
+}
+
+.formCardContainer{
+  /* box-shadow: inset 0 -5px 15px rgba(0,0,0,0.5); */
+  background: #fff;
+  margin: auto;
+  /* display: flex; */
+  max-width: 50vw;
+  padding: 20px;
+  font-size: 18px;
+}
+
+form label{
+  color: #444;
+  margin-left: 10px;
+}
+
+form input{
+  border: 1px solid #666;
+  color: #666;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+form input[type="text"]{
+  border: 1px solid #444;
+  color: #444;
+}
+
+.submitBtn{
+  font-size: 20px;
+  color: white;
+  background-color: #3B9EBE;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 80px;
+  cursor: pointer;
+}
