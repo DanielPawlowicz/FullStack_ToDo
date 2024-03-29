@@ -43,7 +43,6 @@ public class Task {
 ////        this.order = maxOrder != null ? maxOrder + 1 : 1;
 //    }
 
-
     public String getTitle() {
         return title;
     }
