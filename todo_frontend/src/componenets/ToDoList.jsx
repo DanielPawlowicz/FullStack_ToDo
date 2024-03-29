@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import taskService from '../service/TaskService';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
+import { IconButton } from '@mui/material';
 
 
 const ToDoList = () => {
@@ -25,6 +26,10 @@ const ToDoList = () => {
         });
     }
 
+    const test = () => {
+        console.log("Icon clicked");
+    }
+
   return (
     <>
         <div className="container">
@@ -35,13 +40,25 @@ const ToDoList = () => {
                 <table>
                     <tbody>
                         {tasksList.map((t, num) => (
-                            <tr>
+                            <tr className="taskRow" key={num}>
                                 <td><input type="checkbox"/></td>
-                                <td>{t.title}</td>
-                                {/* <td>{t.date}</td>
-                                <td>{t.time}</td> */}
-                                <td><BorderColorOutlinedIcon /></td>
-                                <td><DeleteOutlineSharpIcon /></td>
+                                <td className="taskTitle">{t.title}</td>
+                                {/* <td>{t.date}</td> */}
+                                {/* <td>{t.time}</td> */}
+                                {/* <td>12.04.2024</td>
+                                <td>12:00</td> */}
+                                <td className='taskOrder'>{num+1}</td>
+                                <td>
+                                    <IconButton  onClick={test}>
+                                        <BorderColorOutlinedIcon/>
+                                    </IconButton>
+                                </td>
+                                {/* <td><BorderColorOutlinedIcon/></td> */}
+                                <td>
+                                    <IconButton  onClick={test}>
+                                        <DeleteOutlineSharpIcon />
+                                    </IconButton>
+                                </td>
                             </tr>
                         ))}
                         

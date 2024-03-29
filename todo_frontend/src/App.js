@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import ToDoList from './componenets/ToDoList';
-import Form from './componenets/Form';
+import AddTask from './componenets/AddTask';
 
 function App() {
   return (
     <>
       <ToDoList/>
-      <Form/>
+      <AddTask/>
     </>
   );
 }
