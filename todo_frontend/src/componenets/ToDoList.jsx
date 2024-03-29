@@ -7,20 +7,20 @@ const ToDoList = () => {
     const [tasksList, setTasksList] = useState([]);
 
     useEffect(() => {
+        loadTasks();
+    }, []);
+
+    const loadTasks = () => {
         taskService
         .getAllTask()
         .then((res) => {
             console.log(res.data);
-            // setTasksList(res.data);
+            setTasksList(res.data);
         })
         .catch((error) => {
             console.log(error);
         });
-    }, []);
-
-    // const loadTasks = () => {
-        
-    // }
+    }
 
   return (
     <>
