@@ -2,13 +2,13 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080"; 
 
-class taskService {
+class TaskService {
 
     saveTask(task) {
         return axios.post(API_URL + "/addTask", task);
     }
 
-    getAllTask() {
+    getAllTask () {
         return axios.get(API_URL + "/allTasks");
     }
 
@@ -26,4 +26,4 @@ class taskService {
 
 }
 
-export default new taskService;
+export default new TaskService;
