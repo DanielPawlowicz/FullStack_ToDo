@@ -30,7 +30,10 @@ const AddTask = () => {
         // time:null,
         isDone:false
       });
-    }).catch((error) => {
+
+      window.location.reload();
+
+      }).catch((error) => {
       console.log(error);
     })
   };
