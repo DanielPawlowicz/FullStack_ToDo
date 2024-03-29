@@ -21,7 +21,12 @@ class TaskService {
     }
 
     editTask(task) {
-        return axios.put(API_URL + "/edit/" + task.id, task);
+        // Destructure the task object to get the id and isDone fields
+        const { id, done } = task;
+        // Create a new task object with only the isDone field
+        const updatedTask = { done };
+        // Send a PUT request to update the task with the specified id
+        return axios.put(API_URL + "/edit/" + id, updatedTask);
     }
 
 }

@@ -14,6 +14,7 @@ code {
 
 .container{
   background: #eee;
+  /* background: black; */
   box-shadow: 0 0 50px rgba(0,0,0,0.25);
   margin: 20px auto;
   /* display: flex; */
@@ -82,3 +83,38 @@ form input[type="text"]{
   padding: 0 2%;
   box-sizing: border-box
 }
+
+.checked{
+  color: silver;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+}
+
+input[type="checkbox"]::before {
+  border: 1px solid gray;
+  content: '\2713'; /* Unicode character for checkmark */
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #eee; /* Default color for the checkmark */
+}
+
+input[type="checkbox"]:checked::before {
+  border: 1px solid silver;
+  color: silver; /* Change the color of the checkmark when checked */
+}
+
+.checked .icon {
+  color: silver;
+}
+

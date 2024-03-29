@@ -13,7 +13,7 @@ public class Task {
     private String title;
 //    private Date date;
 //    private Time time;
-    private boolean isDone;
+    private boolean done;
     private Integer taskOrder;
 
     @PostPersist
@@ -76,12 +76,12 @@ public class Task {
         this.id = id;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public boolean getDone() {
+        return done;
     }
 
     public void setDone(boolean done) {
-        isDone = done;
+        this.done = done;
     }
 
     public Integer getTaskOrder() {

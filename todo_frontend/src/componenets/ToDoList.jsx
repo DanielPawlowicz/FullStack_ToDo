@@ -10,6 +10,44 @@ const ToDoList = () => {
 
     const [tasksList, setTasksList] = useState([]);
 
+    const [checkedTasks, setCheckedTasks] = useState([]);
+
+    const handleCheck = (taskId) => {
+        // const isChecked = checkedTasks.includes(taskId);
+        // if (isChecked) {
+        // setCheckedTasks(checkedTasks.filter(id => id !== taskId));
+        // } else {
+        // setCheckedTasks([...checkedTasks, taskId]);
+        // }
+
+        const updatedTasks = tasksList.map(task => {
+            if (task.id === taskId) {
+                const updatedTask = { ...task, done: !task.done };
+                console.log("Updated task:", updatedTask); // Log the updated task
+                taskService.editTask(updatedTask)
+                    .then(() => {
+                        console.log("Task updated successfully");
+                        return updatedTask; // Return updatedTask after updating
+                    })
+                    .catch((error) => {
+                        console.log("Error updating task:", error);
+                        return task; // Return the original task in case of error
+                    });
+            }
+            return task;
+        });
+    
+        setTasksList(updatedTasks);
+    
+        // Update checkedTasks state
+        const isChecked = checkedTasks.includes(taskId);
+        if (isChecked) {
+            setCheckedTasks(checkedTasks.filter(id => id !== taskId));
+        } else {
+            setCheckedTasks([...checkedTasks, taskId]);
+        }
+    };
+
     useEffect(() => {
         loadTasks();
     }, []);
@@ -52,8 +90,8 @@ const ToDoList = () => {
                 <table>
                     <tbody>
                         {tasksList.map((t, num) => (
-                            <tr className="taskRow" key={num}>
-                                <td><input type="checkbox"/></td>
+                            <tr className={checkedTasks.includes(t.id) ? 'checked' : ''} key={num}>
+                                <td><input type="checkbox" checked={checkedTasks.includes(t.id)} onChange={() => handleCheck(t.id)}/></td>
                                 <td className="taskTitle"><p className='taskParagraph'>{t.title}</p></td>
                                 {/* <td>{t.date}</td> */}
                                 {/* <td>{t.time}</td> */}
@@ -62,11 +100,11 @@ const ToDoList = () => {
                                 <td className='taskOrder'>{num+1}</td>
                                 <td>
                                     <IconButton  onClick={test}>
-                                        <BorderColorOutlinedIcon/>
+                                        <BorderColorOutlinedIcon className='icon'/>
                                     </IconButton>
                                 {/* <td><BorderColorOutlinedIcon/></td> */}
-                                    <IconButton  onClick={() => deleteTask(t.id)}>
-                                        <DeleteOutlineSharpIcon />
+                                    <IconButton  onClick={() => deleteTask(t.id)} >
+                                        <DeleteOutlineSharpIcon className='icon'/>
                                     </IconButton>
                                 </td>
                             </tr>
