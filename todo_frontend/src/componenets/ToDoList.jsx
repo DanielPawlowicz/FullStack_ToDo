@@ -30,6 +30,18 @@ const ToDoList = () => {
         console.log("Icon clicked");
     }
 
+    const deleteTask = (id) => {
+        taskService
+        .deleteTask(id)
+        .then((res) => {
+            console.log("task deleted sucessfully");
+            loadTasks();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
   return (
     <>
         <div className="container">
@@ -52,10 +64,8 @@ const ToDoList = () => {
                                     <IconButton  onClick={test}>
                                         <BorderColorOutlinedIcon/>
                                     </IconButton>
-                                </td>
                                 {/* <td><BorderColorOutlinedIcon/></td> */}
-                                <td>
-                                    <IconButton  onClick={test}>
+                                    <IconButton  onClick={() => deleteTask(t.id)}>
                                         <DeleteOutlineSharpIcon />
                                     </IconButton>
                                 </td>
