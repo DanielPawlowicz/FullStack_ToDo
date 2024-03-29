@@ -42,7 +42,7 @@ const ToDoList = () => {
                         {tasksList.map((t, num) => (
                             <tr className="taskRow" key={num}>
                                 <td><input type="checkbox"/></td>
-                                <td className="taskTitle">{t.title}</td>
+                                <td className="taskTitle"><p className='taskParagraph'>{t.title}</p></td>
                                 {/* <td>{t.date}</td> */}
                                 {/* <td>{t.time}</td> */}
                                 {/* <td>12.04.2024</td>
