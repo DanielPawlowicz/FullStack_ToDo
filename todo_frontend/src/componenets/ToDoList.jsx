@@ -1,6 +1,26 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import taskService from '../service/TaskService';
 
 const ToDoList = () => {
+
+    const [tasksList, setTasksList] = useState([]);
+
+    useEffect(() => {
+        taskService
+        .getAllTask()
+        .then((res) => {
+            console.log(res.data);
+            // setTasksList(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }, []);
+
+    // const loadTasks = () => {
+        
+    // }
 
   return (
     <>
