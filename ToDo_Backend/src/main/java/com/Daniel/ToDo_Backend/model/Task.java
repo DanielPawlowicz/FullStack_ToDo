@@ -11,8 +11,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private Date date;
-    private Time time;
+//    private Date date;
+//    private Time time;
     private boolean isDone;
     private Integer taskOrder;
 
@@ -52,21 +52,21 @@ public class Task {
         this.title = title;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
+//
+//    public Time getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(Time time) {
+//        this.time = time;
+//    }
 
     public Long getId() {
         return id;

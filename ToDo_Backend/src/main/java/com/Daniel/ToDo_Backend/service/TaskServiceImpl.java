@@ -54,8 +54,8 @@ public class TaskServiceImpl implements TaskService{
         return taskRepository.findById(id)
                 .map(task -> {
                     task.setTitle(newTask.getTitle());
-                    task.setDate(newTask.getDate());
-                    task.setTime(newTask.getTime());
+//                    task.setDate(newTask.getDate());
+//                    task.setTime(newTask.getTime());
                     task.setDone(newTask.isDone());
                     task.setTaskOrder(newTask.getTaskOrder());
                     return taskRepository.save(task);
