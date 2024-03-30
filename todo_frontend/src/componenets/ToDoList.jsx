@@ -77,6 +77,13 @@ const ToDoList = () => {
         }
     };
 
+    const handleTextareaKeyPress = (event, taskId) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default behavior of Enter key
+            handleSaveClick(taskId); // Call save function when Enter key is pressed
+        }
+    };
+
     const deleteTask = (id) => {
         taskService
         .deleteTask(id)
@@ -96,20 +103,22 @@ const ToDoList = () => {
             <div className="listBody">
                 <table>
                     <tbody>
-                        {tasksList.map((t, num) => (
+                        {
+                        tasksList.map((t, num) => (
                             <tr className={checkedTasks.includes(t.id) ? 'checked' : ''} key={num}>
                                 <td><input type="checkbox" checked={checkedTasks.includes(t.id)} onChange={() => handleCheck(t.id)}/></td>
                                 <td className="taskTitle">
                                     {/* Render textarea if the task is being edited, else render paragraph */}
-                                    {editingTaskId === t.id ? (
-                                        <textarea
-                                            className='taskTextarea'
-                                            value={t.title}
-                                            onChange={(event) => handleTextareaChange(event, t.id)}
-                                        />
-                                    ) : (
-                                        <p className='taskParagraph'>{t.title}</p>
-                                    )}
+                                    {
+                                        editingTaskId === t.id ? (
+                                            <textarea
+                                                className='taskTextarea'
+                                                value={t.title}
+                                                onChange={(event) => handleTextareaChange(event, t.id)}
+                                                onKeyDown={(event) => handleTextareaKeyPress(event, t.id)} // Add key press event listener
+                                            />
+                                        ) : ( <p className='taskParagraph'>{t.title}</p> )
+                                    }
                                 </td>
                                 {/* <td className='taskOrder'>{num+1}</td> */}
                                 <td>
