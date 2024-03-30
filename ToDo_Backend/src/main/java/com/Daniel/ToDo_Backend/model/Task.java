@@ -16,10 +16,10 @@ public class Task {
     private boolean done;
     private Integer taskOrder;
 
-    @PostPersist
-    public void assignIdToTaskOrder() {
-        this.taskOrder = Math.toIntExact(this.id);
-    }
+//    @PostPersist
+//    public void assignIdToTaskOrder() {
+//        this.taskOrder = Math.toIntExact(this.id);
+//    }
 
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 //    @Column(name = "taskOrder")

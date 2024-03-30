@@ -15,4 +15,6 @@ public interface TaskService {
     public String deleteTask(Long id);
 
     public Task editTask(Task task, Long id);
+
+    public Integer getCountOfTasks();
 }

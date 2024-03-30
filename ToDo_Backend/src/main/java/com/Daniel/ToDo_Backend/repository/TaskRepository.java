@@ -10,4 +10,7 @@ public interface TaskRepository extends JpaRepository<Task, Long>{
 
 //    @Query("SELECT MAX(t.order) FROM Task t")
 //    Integer findMaxOrder();
+
+    @Query("SELECT COUNT(*) FROM Task")
+    Integer countAllTasks();
 }

@@ -29,6 +29,10 @@ class TaskService {
         return axios.put(API_URL + "/edit/" + id, updatedTask);
     }
 
+    getCount(){
+        return axios.get(API_URL + "/count");
+    }
+
 }
 
 export default new TaskService;

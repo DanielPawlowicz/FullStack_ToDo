@@ -40,4 +40,9 @@ public class TaskController {
         return new ResponseEntity<>(taskService.editTask(newTask, id), HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    public Integer getCountOfTasks() {
+        return taskService.getCountOfTasks();
+    }
+
 }
