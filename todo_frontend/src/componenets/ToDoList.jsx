@@ -4,6 +4,8 @@ import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import { IconButton } from '@mui/material';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const ToDoList = () => {
     const [tasksList, setTasksList] = useState([]);
@@ -26,7 +28,10 @@ const ToDoList = () => {
                     }
                     return task;
                 });
+                // Sort tasks by order field
+                updatedTasks.sort((a, b) => a.taskOrder - b.taskOrder);
                 setTasksList(updatedTasks);
+                console.log(updatedTasks);
             })
             .catch((error) => {
                 console.log(error);
@@ -95,6 +100,48 @@ const ToDoList = () => {
         });
     };
 
+    const handleUp = (id) => {
+        const index = tasksList.findIndex(task => task.id === id);
+        if (index > 0) {
+            const updatedTasks = [...tasksList];
+            const temp = updatedTasks[index].taskOrder;
+            updatedTasks[index].taskOrder = updatedTasks[index - 1].taskOrder;
+            updatedTasks[index - 1].taskOrder = temp;
+            setTasksList(updatedTasks);
+            // Update the task order in the database
+            updateTaskOrder(updatedTasks);
+            console.log(tasksList);
+        }
+    };
+    
+    const handleDown = (id) => {
+        const index = tasksList.findIndex(task => task.id === id);
+        if (index < tasksList.length - 1) {
+            const updatedTasks = [...tasksList];
+            const temp = updatedTasks[index].taskOrder;
+            updatedTasks[index].taskOrder = updatedTasks[index + 1].taskOrder;
+            updatedTasks[index + 1].taskOrder = temp;
+            setTasksList(updatedTasks);
+            // Update the task order in the database
+            updateTaskOrder(updatedTasks);
+            console.log(tasksList);
+        }
+    };
+    
+    const updateTaskOrder = (updatedTasks) => {
+        // Map through the updated tasks to send an API request to update the task order in the database
+        updatedTasks.forEach(async (task) => {
+            try {
+                await taskService.editTask({ ...task });
+            } catch (error) {
+                console.log("Error updating task:", error);
+            }
+        });
+        console.log(tasksList);
+        loadTasks();
+    };
+
+
     return (
         <div className="container">
             <div className="listHeader">
@@ -122,6 +169,12 @@ const ToDoList = () => {
                                 </td>
                                 {/* <td className='taskOrder'>{num+1}</td> */}
                                 <td>
+                                        <IconButton onClick={() => handleUp(t.id)}>
+                                            <KeyboardArrowUpIcon className='icon'/>
+                                        </IconButton>
+                                        <IconButton onClick={() => handleDown(t.id)}>
+                                            <KeyboardArrowDownIcon className='icon'/>
+                                        </IconButton>
                                     {/* Render edit icon if task is not being edited, else render save icon */}
                                     {editingTaskId === t.id ? (
                                         <IconButton onClick={() => handleSaveClick(t.id)}>
