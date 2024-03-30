@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <ToDoList/>
-      <AddTask/>
+      {/* <AddTask/> */}
     </>
   );
 }
