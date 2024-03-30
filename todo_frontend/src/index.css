@@ -18,7 +18,7 @@ code {
   box-shadow: 0 0 50px rgba(0,0,0,0.25);
   margin: 20px auto;
   /* display: flex; */
-  max-width: 40vw;
+  width: 600px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -43,7 +43,7 @@ code {
   background: #fff;
   margin: auto;
   /* display: flex; */
-  max-width: 40vw;
+  width: 700px;
   padding: 20px;
   font-size: 18px;
 }
@@ -76,13 +76,36 @@ form input[type="text"]{
   cursor: pointer;
 }
 
+/* td{
+  padding: 2px 0;
+  box-sizing: border-box;
+  width: 950px;
+} */
+
 .taskParagraph{
-  width: 27vw;
+  width: 370px;
   word-wrap: break-word;
   margin: 0;
   padding: 0 2%;
   box-sizing: border-box
 }
+
+.taskTextarea{
+  width: 350px;
+  height: 17px;
+  font-size: 15px;
+  padding: 1px 3px;
+  font-family: 'verdana';
+  margin-left: 10px;
+  margin-top: 4px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border: 0.5px solid silver;
+}
+
+.taskTextarea:focus{
+  outline: none !important;
+}
+
 
 .checked{
   color: silver;
@@ -118,22 +141,20 @@ input[type="checkbox"]:checked::before {
   color: silver;
 }
 
+.icon{
+  color: #999;
+  margin: -2px;
+}
+
 .saveIcon{
   color: #40b767	;
 }
 
-.taskTextarea{
-  height: 17px;
-  font-size: 15px;
-  padding: 1px 3px;
-  font-family: 'verdana';
-  margin-left: 10px;
-  margin-top: 4px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 30vw;
-  border: 0.5px solid silver;
+.arrow{
+  margin: -20px;
 }
 
-.taskTextarea:focus{
-  outline: none !important;
-}
+/* .iconCol{
+  position: relative;
+  float: left;
+} */

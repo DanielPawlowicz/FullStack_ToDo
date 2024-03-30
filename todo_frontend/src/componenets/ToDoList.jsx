@@ -168,11 +168,11 @@ const ToDoList = () => {
                                     }
                                 </td>
                                 {/* <td className='taskOrder'>{num+1}</td> */}
-                                <td>
-                                        <IconButton onClick={() => handleUp(t.id)}>
+                                <td className='iconCol'>
+                                        <IconButton onClick={() => handleUp(t.id)} className='arrow'>
                                             <KeyboardArrowUpIcon className='icon'/>
                                         </IconButton>
-                                        <IconButton onClick={() => handleDown(t.id)}>
+                                        <IconButton onClick={() => handleDown(t.id)} className='arrow'>
                                             <KeyboardArrowDownIcon className='icon'/>
                                         </IconButton>
                                     {/* Render edit icon if task is not being edited, else render save icon */}
