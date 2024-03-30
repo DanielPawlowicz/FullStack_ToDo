@@ -46,7 +46,7 @@ const AddTask = () => {
                     <label>Title: <input type="text" name="title" className='form-control' onChange={(e) => handleChange(e)} value={task.name}/></label>
                     {/* <label>Date: <input type="date" name="date" className='form-control' onChange={(e) => handleChange(e)} value={task.date}/></label> */}
                     {/* <label>Time: <input type="time" name="time" className='form-control' onChange={(e) => handleChange(e)} value={task.time}/></label> */}
-                    <button className='submitBtn'>Submit</button>
+                    <button className='submitBtn'>Add</button>
                 </form>
             </div>
         </div>
