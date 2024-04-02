@@ -19,7 +19,7 @@ const ToDoList = () => {
         title: "",
         isDone: false,
         taskOrder: 0
-      });
+    });
     
     useEffect(() => {
         fetchMaxTaskOrder();
@@ -169,9 +169,7 @@ const ToDoList = () => {
         loadTasks();
     };
 
-
-
-
+    
 // ADD TASK ---------------------------------------------------------------------
     
     const fetchMaxTaskOrder = async () => {
