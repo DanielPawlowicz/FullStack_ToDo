@@ -13,10 +13,12 @@ const ToDoList = () => {
     const [checkedTasks, setCheckedTasks] = useState([]);
     const [editingTaskId, setEditingTaskId] = useState(null); // State to track the task being edited
     const [taskCount, setTaskCount] = useState(0);
+    // const [order, setOrder] = useState(0);
 
     const [task, setTask] = useState({
         title: "",
-        isDone: false
+        isDone: false,
+        taskOrder: 0
       });
     
     useEffect(() => {
@@ -24,6 +26,8 @@ const ToDoList = () => {
         loadTasks();
     }, []);
 
+
+// loading tasks
     const loadTasks = () => {
         taskService
           .getAllTask()
@@ -46,6 +50,8 @@ const ToDoList = () => {
           });
       };
 
+
+// handling data change 
     const handleCheck = async (taskId) => {
         try {
             const updatedTask = tasksList.find(task => task.id === taskId);
@@ -113,6 +119,7 @@ const ToDoList = () => {
           // Update the tasksList state
           setTasksList(updatedTasks);
           setTaskCount(prevCount => prevCount - 1); // Decrement task count after deletion
+        // setOrder(o => --o);
           loadTasks();
         } catch (error) {
           console.log(error);
@@ -130,6 +137,7 @@ const ToDoList = () => {
             // Update the task order in the database
             updateTaskOrder(updatedTasks);
             console.log(tasksList);
+            loadTasks();
         }
     };
     
@@ -144,6 +152,7 @@ const ToDoList = () => {
             // Update the task order in the database
             updateTaskOrder(updatedTasks);
             console.log(tasksList);
+            loadTasks();
         }
     };
     
@@ -160,13 +169,16 @@ const ToDoList = () => {
         loadTasks();
     };
 
-    // ADD TASK
+
+
+
+// ADD TASK ---------------------------------------------------------------------
     
     const fetchMaxTaskOrder = async () => {
         try {
           const response = await axios.get("http://localhost:8080/count");
           const maxTaskOrder = response.data; // Assuming the API returns the maximum taskOrder value
-          const nextTaskOrder = maxTaskOrder + 1;
+          const nextTaskOrder = maxTaskOrder;
           setTaskCount(maxTaskOrder); // Set task count based on the response
           setTask(prevState => ({ ...prevState, taskOrder: nextTaskOrder }));
         } catch (error) {
@@ -187,9 +199,9 @@ const ToDoList = () => {
           setTask({
             title: "",
             isDone: false,
-            taskOrder: task.taskOrder + 1 // Increment taskOrder for next task
+            taskOrder: task.taskOrder+1 // Increment taskOrder for next task
           });
-          window.location.reload();
+          loadTasks();
         } catch (error) {
           console.log(error);
         }
