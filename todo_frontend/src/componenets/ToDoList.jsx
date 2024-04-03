@@ -105,26 +105,29 @@ const ToDoList = () => {
 
     const deleteTask = async (id) => {
         try {
-          await taskService.deleteTask(id);
-          // Find the index of the deleted task in the tasksList
-          const deletedTaskIndex = tasksList.findIndex(task => task.id === id);
-          // Create a new array excluding the deleted task
-          const updatedTasks = tasksList.filter(task => task.id !== id);
-          // Decrement the taskOrder of following tasks
-          updatedTasks.forEach(task => {
-            if (task.taskOrder > deletedTaskIndex) {
-              task.taskOrder -= 1;
-            }
-          });
-          // Update the tasksList state
-          setTasksList(updatedTasks);
-          setTaskCount(prevCount => prevCount - 1); // Decrement task count after deletion
-        // setOrder(o => --o);
-          loadTasks();
+            await taskService.deleteTask(id);
+    
+            // Filter out the deleted task
+            const filteredTasks = tasksList.filter(task => task.id !== id);
+    
+            // Update task order values
+            const updatedTasks = filteredTasks.map((task, index) => ({
+                ...task,
+                taskOrder: index + 1
+            }));
+    
+            // Update the tasksList state with updated task order
+            setTasksList(updatedTasks);
+    
+            // Update the task order in the database
+            updateTaskOrder(updatedTasks);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+        loadTasks();
+        loadTasks();
+    };
+    
 
     const handleUp = (id) => {
         const index = tasksList.findIndex(task => task.id === id);
@@ -133,10 +136,11 @@ const ToDoList = () => {
             const temp = updatedTasks[index].taskOrder;
             updatedTasks[index].taskOrder = updatedTasks[index - 1].taskOrder;
             updatedTasks[index - 1].taskOrder = temp;
-            setTasksList(updatedTasks);
+            setTasksList([...updatedTasks]);
             // Update the task order in the database
             updateTaskOrder(updatedTasks);
             console.log(tasksList);
+            loadTasks();
             loadTasks();
         }
     };
@@ -148,10 +152,11 @@ const ToDoList = () => {
             const temp = updatedTasks[index].taskOrder;
             updatedTasks[index].taskOrder = updatedTasks[index + 1].taskOrder;
             updatedTasks[index + 1].taskOrder = temp;
-            setTasksList(updatedTasks);
+            setTasksList([...updatedTasks]);
             // Update the task order in the database
             updateTaskOrder(updatedTasks);
             console.log(tasksList);
+            loadTasks();
             loadTasks();
         }
     };
