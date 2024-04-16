@@ -9,28 +9,27 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
 
 const ToDoList = () => {
-    const [tasksList, setTasksList] = useState([]);
-    const [checkedTasks, setCheckedTasks] = useState([]);
+    // State variables
+    const [tasksList, setTasksList] = useState([]); // State to store list of tasks
+    const [checkedTasks, setCheckedTasks] = useState([]); // State to store list of checked tasks
     const [editingTaskId, setEditingTaskId] = useState(null); // State to track the task being edited
-    const [taskCount, setTaskCount] = useState(0);
-    // const [order, setOrder] = useState(0);
-
-    const [task, setTask] = useState({
+    const [taskCount, setTaskCount] = useState(0); // State to store task count
+    const [task, setTask] = useState({ // State to store new task data
         title: "",
         isDone: false,
         taskOrder: 0
     });
     
     useEffect(() => {
-        fetchMaxTaskOrder();
-        loadTasks();
+        fetchMaxTaskOrder(); // Fetch maximum task order when component mounts
+        loadTasks(); // Load tasks when component mounts
     }, []);
 
 
-// loading tasks
+// Function to load tasks
     const loadTasks = () => {
-        taskService
-          .getAllTask()
+        // Fetch tasks from service
+        taskService.getAllTask()
           .then((res) => {
             const updatedTasks = res.data.map(task => {
               if (task.done) {
@@ -42,8 +41,7 @@ const ToDoList = () => {
             });
             // Sort tasks by order field
             updatedTasks.sort((a, b) => a.taskOrder - b.taskOrder);
-            setTasksList(updatedTasks);
-            console.log(updatedTasks);
+            setTasksList(updatedTasks); // Update tasksList state with fetched tasks
           })
           .catch((error) => {
             console.log(error);
@@ -51,7 +49,7 @@ const ToDoList = () => {
       };
 
 
-// handling data change 
+// Function to handle task checkbox click
     const handleCheck = async (taskId) => {
         try {
             const updatedTask = tasksList.find(task => task.id === taskId);
@@ -60,17 +58,19 @@ const ToDoList = () => {
             }
     
             const updatedTaskData = { ...updatedTask, done: !updatedTask.done };
-            await taskService.editTask(updatedTaskData);
-            loadTasks();
+            await taskService.editTask(updatedTaskData); // Update task status
+            loadTasks(); // Reload tasks after updating
         } catch (error) {
             console.log("Error updating task:", error);
         }
     };
 
+    // Function to handle click on edit icon
     const handleEditClick = (taskId) => {
         setEditingTaskId(taskId); // Set the editing task ID when edit icon is clicked
     };
 
+    // Function to handle textarea change
     const handleTextareaChange = (event, taskId) => {
         const updatedTasks = tasksList.map(task => {
             if (task.id === taskId) {
@@ -78,9 +78,10 @@ const ToDoList = () => {
             }
             return task;
         });
-        setTasksList(updatedTasks);
+        setTasksList(updatedTasks); // Update tasksList state with edited task
     };
 
+    // Function to handle save click
     const handleSaveClick = async (taskId) => {
         const editedTask = tasksList.find(task => task.id === taskId);
         if (!editedTask) {
@@ -88,7 +89,7 @@ const ToDoList = () => {
         }
 
         try {
-            await taskService.editTask(editedTask);
+            await taskService.editTask(editedTask); // Save edited task
             setEditingTaskId(null); // Reset editing task ID after saving
             loadTasks(); // Reload tasks after saving
         } catch (error) {
@@ -96,6 +97,7 @@ const ToDoList = () => {
         }
     };
 
+    // Function to handle key press in textarea
     const handleTextareaKeyPress = (event, taskId) => {
         if (event.key === 'Enter') {
             event.preventDefault(); // Prevent default behavior of Enter key
@@ -103,32 +105,22 @@ const ToDoList = () => {
         }
     };
 
+    // Function to delete task
     const deleteTask = async (id) => {
         try {
-            await taskService.deleteTask(id);
-    
-            // Filter out the deleted task
-            const filteredTasks = tasksList.filter(task => task.id !== id);
-    
-            // Update task order values
-            const updatedTasks = filteredTasks.map((task, index) => ({
-                ...task,
-                taskOrder: index + 1
-            }));
-    
-            // Update the tasksList state with updated task order
-            setTasksList(updatedTasks);
-    
-            // Update the task order in the database
-            updateTaskOrder(updatedTasks);
+            await taskService.deleteTask(id); // Delete task
+            const filteredTasks = tasksList.filter(task => task.id !== id); // Filter out the deleted task
+            const updatedTasks = filteredTasks.map((task, index) => ({ ...task, taskOrder: index + 1 })); // Update task order values
+            setTasksList(updatedTasks); // Update tasksList state with updated task order
+            updateTaskOrder(updatedTasks); // Update task order in the database
         } catch (error) {
             console.log(error);
         }
-        loadTasks();
+        loadTasks(); // Reload tasks after deleting
         loadTasks();
     };
     
-
+    // Function to move task up
     const handleUp = (id) => {
         const index = tasksList.findIndex(task => task.id === id);
         if (index > 0) {
@@ -137,14 +129,13 @@ const ToDoList = () => {
             updatedTasks[index].taskOrder = updatedTasks[index - 1].taskOrder;
             updatedTasks[index - 1].taskOrder = temp;
             setTasksList([...updatedTasks]);
-            // Update the task order in the database
-            updateTaskOrder(updatedTasks);
-            console.log(tasksList);
-            loadTasks();
+            updateTaskOrder(updatedTasks); // Update task order in the database
+            loadTasks(); // Reload tasks after updating
             loadTasks();
         }
     };
     
+    // Function to move task down
     const handleDown = (id) => {
         const index = tasksList.findIndex(task => task.id === id);
         if (index < tasksList.length - 1) {
@@ -153,34 +144,33 @@ const ToDoList = () => {
             updatedTasks[index].taskOrder = updatedTasks[index + 1].taskOrder;
             updatedTasks[index + 1].taskOrder = temp;
             setTasksList([...updatedTasks]);
-            // Update the task order in the database
-            updateTaskOrder(updatedTasks);
-            console.log(tasksList);
-            loadTasks();
+            updateTaskOrder(updatedTasks); // Update task order in the database
+            loadTasks(); // Reload tasks after updating
             loadTasks();
         }
     };
     
+    // Function to update task order
     const updateTaskOrder = (updatedTasks) => {
         // Map through the updated tasks to send an API request to update the task order in the database
         updatedTasks.forEach(async (task) => {
             try {
                 await taskService.editTask({ ...task });
             } catch (error) {
-                console.log("Error updating task:", error);
+                console.error("Error updating task:", error);
             }
         });
-        console.log(tasksList);
-        loadTasks();
+        loadTasks();  // Reload tasks after updating
     };
 
     
 // ADD TASK ---------------------------------------------------------------------
     
+    // Function to fetch maximum task order
     const fetchMaxTaskOrder = async () => {
         try {
-          const response = await axios.get("http://localhost:8080/count");
-          const maxTaskOrder = response.data; // Assuming the API returns the maximum taskOrder value
+          const response = await taskService.getCount();
+          const maxTaskOrder = response.data;
           const nextTaskOrder = maxTaskOrder;
           setTaskCount(maxTaskOrder); // Set task count based on the response
           setTask(prevState => ({ ...prevState, taskOrder: nextTaskOrder }));
@@ -189,30 +179,29 @@ const ToDoList = () => {
         }
       };
     
+      // Function to handle change in input fields
       const handleChange = (e) => {
         const { name, value } = e.target;
         setTask(prevState => ({ ...prevState, [name]: value }));
       };
     
+      // Function to register new task
       const taskRegister = async (e) => {
         e.preventDefault();
         try {
-          await taskService.saveTask(task);
-          console.log("Task added successfully");
+          await taskService.saveTask(task);  // Save new task
           setTask({
             title: "",
             isDone: false,
-            taskOrder: task.taskOrder+1 // Increment taskOrder for next task
+            taskOrder: task.taskOrder + 1 // Increment taskOrder for next task
           });
-          loadTasks();
+
+          loadTasks();// Reload tasks after adding new task
+
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
-
-
-
-
 
 
     return (
@@ -225,6 +214,7 @@ const ToDoList = () => {
             <div className="listBody">
                 <table>
                     <tbody>
+                        {/* Map through tasks and render each task */}
                         {
                             tasksList.map((t, num) => (
                                 <tr className={checkedTasks.includes(t.id) ? 'checked' : ''} key={num}>
@@ -242,7 +232,6 @@ const ToDoList = () => {
                                             ) : ( <p className='taskParagraph'>{t.title}</p> )
                                         }
                                 </td>
-                                {/* <td className='taskOrder'>{num+1}</td> */}
                                 <td className='iconCol'>
                                         <IconButton onClick={() => handleUp(t.id)} className='arrow'>
                                             <KeyboardArrowUpIcon className='icon'/>
