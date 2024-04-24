@@ -41,7 +41,7 @@
 ![Zrzut ekranu 2024-04-24 182045](https://github.com/DanielPawlowicz/To-Do_Tasker/assets/91285163/5e0347cc-d099-4ce4-a373-056bdaf86256)
 ![Zrzut ekranu 2024-04-24 182100](https://github.com/DanielPawlowicz/To-Do_Tasker/assets/91285163/8b6e9e7c-cc0e-432e-837d-9b722c0c5f06)
 
-#### After clicking the modify icon, you can change the title of the task
+#### After clicking the modify icon, you can change the title of the task, and save it clicking the green save button or enter key on your keyboard
 ![Zrzut ekranu 2024-04-24 182253](https://github.com/DanielPawlowicz/To-Do_Tasker/assets/91285163/5649348f-3fa7-4559-ad26-b420ffe70831)
 
 ### Enjoy!
